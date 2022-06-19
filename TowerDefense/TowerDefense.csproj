@@ -9,12 +9,24 @@
 
   <ItemGroup>
     <None Remove="BG.png" />
+    <None Remove="bowm.png" />
+    <None Remove="bowm2.png" />
+    <None Remove="bowm3.png" />
     <None Remove="ghost.png" />
+    <None Remove="wiz.jpg" />
+    <None Remove="wiz2.jpg" />
+    <None Remove="wiz3.jpg" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="BG.png" />
+    <Resource Include="bowm.png" />
+    <Resource Include="bowm2.png" />
+    <Resource Include="bowm3.png" />
     <Resource Include="ghost.png" />
+    <Resource Include="wiz.jpg" />
+    <Resource Include="wiz2.jpg" />
+    <Resource Include="wiz3.jpg" />
   </ItemGroup>
 
 </Project>

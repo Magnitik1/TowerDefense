@@ -10,14 +10,14 @@
         <Grid.Background>
             <ImageBrush ImageSource="/BG.png"/>
         </Grid.Background>
-        <Image x:Name="ghost" Height="50" Panel.ZIndex="11" Width="50" Margin="1108,360,-58,174" Source="/ghost.png"/>
+        <Image x:Name="ghost" Height="50" Panel.ZIndex="11" Width="50" Margin="1108,360,-58,174" Source="/ghost.png" Opacity="0.85"/>
 
         <Canvas Margin="-22,109,-85,174" Name="canv" Panel.ZIndex="10">
-            
+
         </Canvas>
         <Button x:Name="place1" Content="1" HorizontalAlignment="Left" IsTabStop="False" Margin="247,197,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
         <Button x:Name="place2" Content="2" HorizontalAlignment="Left" IsTabStop="False" Margin="455,245,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
-        <Ellipse x:Name="e1" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="119,71,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5">
+        <Ellipse x:Name="e1" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="119,71,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.38">
             <Ellipse.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -27,7 +27,7 @@
                 </TransformGroup>
             </Ellipse.RenderTransform>
         </Ellipse>
-        <Ellipse x:Name="e2" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5">
+        <Ellipse x:Name="e2" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.4">
             <Ellipse.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -37,7 +37,11 @@
                 </TransformGroup>
             </Ellipse.RenderTransform>
         </Ellipse>
-
-
+        <Image Name="pic" Panel.ZIndex="11" Source="/wiz.jpg" HorizontalAlignment="Left" Height="100" Margin="632,603,0,0" VerticalAlignment="Top" Width="100"/>
+        <Image Name="pic4" HorizontalAlignment="Left" Source="/bowm3.png" Height="100" Margin="405,603,0,0" VerticalAlignment="Top" Width="100"/>
+        <Image Name="pic3" HorizontalAlignment="Left" Source="/bowm2.png" Height="100" Margin="455,603,0,0" VerticalAlignment="Top" Width="100"/>
+        <Image Name="pic5" HorizontalAlignment="Left" Source="/bowm.png" Height="100" Margin="294,603,0,0" VerticalAlignment="Top" Width="100"/>
+        <Image Name="pic1" HorizontalAlignment="Left" Source="/wiz2.jpg" Height="100" Margin="582,603,0,0" VerticalAlignment="Top" Width="100"/>
+        <Image Name="pic2" Source="/wiz3.jpg" HorizontalAlignment="Left" Height="100" Margin="632,603,0,0" VerticalAlignment="Top" Width="100"/>
     </Grid>
 </Window>
