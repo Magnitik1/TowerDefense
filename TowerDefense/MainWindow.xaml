@@ -10,38 +10,75 @@
         <Grid.Background>
             <ImageBrush ImageSource="/BG.png"/>
         </Grid.Background>
-        <Image x:Name="ghost" Height="50" Panel.ZIndex="11" Width="50" Margin="1108,360,-58,174" Source="/ghost.png" Opacity="0.85"/>
-
-        <Canvas Margin="-22,109,-85,174" Name="canv" Panel.ZIndex="10">
+        <Canvas Drop="canv_Drop" Margin="-22,10,-23,46" Name="canv" Panel.ZIndex="10" AllowDrop="True" DragOver="canv_DragOver">
+            <Image Name="bow" Height="95" Source="/bowm.png" MouseMove="bowman_MouseMove" 
+                   Canvas.Top="438" Canvas.Left="33"/>
+            <Image Name="wiz" Height="95" Canvas.Left="147" Source="/wiz.jpg" MouseMove="wizard_MouseMove" 
+                   Canvas.Top="438"/>
 
         </Canvas>
-        <Button x:Name="place1" Content="1" HorizontalAlignment="Left" IsTabStop="False" Margin="247,197,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
-        <Button x:Name="place2" Content="2" HorizontalAlignment="Left" IsTabStop="False" Margin="455,245,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
-        <Ellipse x:Name="e1" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="119,71,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.38">
-            <Ellipse.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="0.891"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Ellipse.RenderTransform>
-        </Ellipse>
-        <Ellipse x:Name="e2" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.4">
-            <Ellipse.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="0.891"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Ellipse.RenderTransform>
-        </Ellipse>
-        <Image Name="pic" Panel.ZIndex="11" Source="/wiz.jpg" HorizontalAlignment="Left" Height="100" Margin="632,603,0,0" VerticalAlignment="Top" Width="100"/>
-        <Image Name="pic4" HorizontalAlignment="Left" Source="/bowm3.png" Height="100" Margin="405,603,0,0" VerticalAlignment="Top" Width="100"/>
-        <Image Name="pic3" HorizontalAlignment="Left" Source="/bowm2.png" Height="100" Margin="455,603,0,0" VerticalAlignment="Top" Width="100"/>
-        <Image Name="pic5" HorizontalAlignment="Left" Source="/bowm.png" Height="100" Margin="294,603,0,0" VerticalAlignment="Top" Width="100"/>
-        <Image Name="pic1" HorizontalAlignment="Left" Source="/wiz2.jpg" Height="100" Margin="582,603,0,0" VerticalAlignment="Top" Width="100"/>
-        <Image Name="pic2" Source="/wiz3.jpg" HorizontalAlignment="Left" Height="100" Margin="632,603,0,0" VerticalAlignment="Top" Width="100"/>
+        <Button x:Name="place1" Content="1" Visibility="Hidden" HorizontalAlignment="Left" IsTabStop="False" Margin="247,197,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place2" Content="2" Visibility="Hidden" HorizontalAlignment="Left" IsTabStop="False" Margin="455,245,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place3" Content="3" Visibility="Hidden" HorizontalAlignment="Left" IsTabStop="False" Margin="850,388,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place4" Visibility="Hidden" Content="4" HorizontalAlignment="Left" IsTabStop="False" Margin="662,431,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place5" Visibility="Hidden" Content="5" HorizontalAlignment="Left" IsTabStop="False" Margin="662,431,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place6" Visibility="Hidden" Content="6" HorizontalAlignment="Left" IsTabStop="False" Margin="662,431,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place7" Visibility="Hidden" Content="7" HorizontalAlignment="Left" IsTabStop="False" Margin="662,431,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place8" Visibility="Hidden" Content="8" HorizontalAlignment="Left" IsTabStop="False" Margin="662,431,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place9" Visibility="Hidden" Content="9" HorizontalAlignment="Left" IsTabStop="False" Margin="662,431,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place10" Visibility="Hidden" Content="10" HorizontalAlignment="Left" IsTabStop="False" Margin="662,431,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place11" Visibility="Hidden" Content="11" HorizontalAlignment="Left" IsTabStop="False" Margin="662,431,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place12" Visibility="Hidden" Content="12" HorizontalAlignment="Left" IsTabStop="False" Margin="662,431,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place13" Visibility="Hidden" Content="13" HorizontalAlignment="Left" IsTabStop="False" Margin="662,431,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place14" Visibility="Hidden" Content="14" HorizontalAlignment="Left" IsTabStop="False" Margin="662,431,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place15" Visibility="Hidden" Content="15" HorizontalAlignment="Left" IsTabStop="False" Margin="662,431,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place16" Visibility="Hidden" Content="16" HorizontalAlignment="Left" IsTabStop="False" Margin="662,431,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place17" Visibility="Hidden" Content="17" HorizontalAlignment="Left" IsTabStop="False" Margin="662,431,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place18" Visibility="Hidden" Content="18" HorizontalAlignment="Left" IsTabStop="False" Margin="662,431,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place19" Visibility="Hidden" Content="19" HorizontalAlignment="Left" IsTabStop="False" Margin="662,431,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place20" Visibility="Hidden" Content="20" HorizontalAlignment="Left" IsTabStop="False" Margin="662,431,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place21" Visibility="Hidden" Content="21" HorizontalAlignment="Left" IsTabStop="False" Margin="662,431,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place22" Visibility="Hidden" Content="22" HorizontalAlignment="Left" IsTabStop="False" Margin="662,431,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place23" Visibility="Hidden" Content="23" HorizontalAlignment="Left" IsTabStop="False" Margin="662,431,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place24" Visibility="Hidden" Content="24" HorizontalAlignment="Left" IsTabStop="False" Margin="662,431,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place25" Visibility="Hidden" Content="25" HorizontalAlignment="Left" IsTabStop="False" Margin="662,431,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place26" Visibility="Hidden" Content="26" HorizontalAlignment="Left" IsTabStop="False" Margin="662,431,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place27" Visibility="Hidden" Content="27" HorizontalAlignment="Left" IsTabStop="False" Margin="662,431,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place28" Visibility="Hidden" Content="28" HorizontalAlignment="Left" IsTabStop="False" Margin="662,431,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place29" Visibility="Hidden" Content="29" HorizontalAlignment="Left" IsTabStop="False" Margin="662,431,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Button x:Name="place30" Visibility="Hidden" Content="30" HorizontalAlignment="Left" IsTabStop="False" Margin="662,431,0,0" VerticalAlignment="Top" Height="95" Width="95" Click="Button_Click"/>
+        <Ellipse x:Name="e1" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="119,71,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e2" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="119,71,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e3" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="119,71,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e4" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e5" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e6" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e7" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e8" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e9" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e10" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e11" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e12" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e13" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e14" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e15" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e16" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e17" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e18" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e19" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e20" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e21" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e22" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e23" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e24" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e25" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e26" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e27" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e28" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e29" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Ellipse x:Name="e30" Visibility="Hidden" HorizontalAlignment="Left" Height="350" Margin="329,120,0,0" Stroke="Black" VerticalAlignment="Top" Width="350" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Image x:Name="God_ghost" HorizontalAlignment="Left" Source="/ghost.png" Height="60" Margin="1150,410,0,0" VerticalAlignment="Top" Width="60"/>
+
+
     </Grid>
 </Window>

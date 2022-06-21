@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="Build" Height="99" Width="99" WindowStyle="None" ResizeMode="NoResize" Background="#FFD0FFF8" ShowInTaskbar="False">
     <Grid Focusable="True">
-        <ListBox SelectionChanged="ListBox_SelectionChanged">
+        <ListBox x:Name="list" SelectionChanged="ListBox_SelectionChanged">
             <ListBoxItem>Archer tower</ListBoxItem>
-            <ListBoxItem>Magic tower</ListBoxItem>
+            <ListBoxItem>Wizard tower</ListBoxItem>
         </ListBox>
 
     </Grid>

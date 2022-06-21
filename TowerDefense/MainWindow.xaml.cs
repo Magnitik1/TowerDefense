@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Resources;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,300 +15,187 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace TowerDefense;
-/// <summary>
-/// Spended time: 36h 25m
+/// <summary>//12:05
+/// Spended time: 41h 10m
 /// </summary>
 public partial class MainWindow : Window {
     public MainWindow() {
         InitializeComponent();
-        places[0] = place1;
-        places[1] = place2;
-        IsBusy.Add(new List<bool>());
-        IsBusy.Add(new List<bool>());
-        NumOfBusy.Add(new List<int> { -1 });
-        NumOfBusy.Add(new List<int> { -1 });
-        IsBusy[0].Add(false);
-        IsBusy[1].Add(false);
+        SetAll();
         build = new Build();
-        up = new Upgrade();
         Spawner = new Thread(Spawn);
         Spawner.Start(num);
     }
+    List<double> positions_x = new List<double>();
+    List<double> positions_y = new List<double>();
+    bool test = true;
+    int count = 0;
     public static bool ppp = true;
-    bool bug = false;
     int newer = 0;
     List<int> order = new List<int>();
-    List<int> ban = new List<int>();
-    List<bool> ttt = new List<bool>();
-    List<string> pos = new List<string>();
-    List<int> count = new List<int>();
-    List<int> hisnum = new List<int>();
+    int[] hisnum = new int[500];
     double[] hp = new double[500];
-    int[,] range = new int[2, 2] { { 290, 136 }, { 503, 184 } };// x|y
+    int[,] range = new int[30, 2];// x|y
     Thread EnemyThread;
     Thread Spawner;
     int num = 0;
     Thread thread;
-    public static int NumOfPlace;
-    public static Button[] places = new Button[2];
-    public static int[] upgrade = new int[] { 0, 0 };
-    public static List<List<bool>> IsBusy = new List<List<bool>>();
-    public static List<List<int>> NumOfBusy = new List<List<int>>();
+    int NumOfPlace;
+    Button[] places = new Button[30];
+    Ellipse[] ellipses = new Ellipse[30];
+    int[] upgrade = new int[30];
+    bool[] IsBusy = new bool[30];
+    int[] NumOfBusy = new int[30];
+    int[] dmga = new int[30];
     Build build;
-    Upgrade up;
     List<Image> imageControl = new List<Image>();
     List<Label> HpControl = new List<Label>();
     private void Spawn(object? obj) {
         int o = (int)obj;
         num = -1;
+        EnemyThread = new Thread(EnemyMovement);
         while (ppp) {
-            bug = false;
             EnemyThread = new Thread(EnemyMovement);
-            for (int i = 0; i < HpControl.Count; i++) {
-                place1.Dispatcher.Invoke(new Action(() => {
-
-                    if (pos[i] == imageControl[i].Margin.ToString()) {
-                        if (count[i] < 3) { count[i]++; }
-                        else {
-                            count[i] = 0;
-                        }
-                        if (count[i] >= 2 && hp[i] >= 1) {
-                            imageControl[i].Margin = new Thickness(-101, -101, 0, 0);
-                            canv.Children.Remove(imageControl[i]);
-                            canv.Children.Remove(HpControl[i]);
-                            hp[i] = -1;
-                            ttt[i] = false;
-                            order.Remove(i);
-                            if (order.Count > 0) order.RemoveAt(0);
-                            if (order.Count > 1) order.RemoveAt(1);
-                            if (order.Count > 2) order.RemoveAt(2);
-                            if (order.Count > 3) order.RemoveAt(3);
-                            count[i] = 0;
-                            ban.Add(i);
-                            for (int za = 0; za < NumOfPlace; za++) {
-                                    IsBusy[za][0] = true;
-                                    NumOfBusy[za][0] = order[0];
-                            }
-                        }
-                    }
-                }));
+            if (newer > 0) {
+                o = hisnum[newer];
+                order[order.Count - 1] = o;
+                newer--;
+                EnemyThread.Start(hisnum[newer + 1]);
             }
-            for (int j = 0; j < NumOfPlace; j++) {
-                    for (int i = 0; i < NumOfBusy[j].Count(); i++) {
-                    if (hp[NumOfBusy[j][i]]<1) {
-                        IsBusy[j][i] = false;
-                        NumOfBusy[j][i] = order[0];
-                    }
-                    }
-                }
-            int op = hisnum.Distinct().Count();
-            if (hisnum.Count != op) {
-                var temp = hisnum.Distinct();
-                hisnum.Clear();
-                
-                foreach (var tt in temp) {
-                    hisnum.Add(tt);
-                }
-            }
-            bool cont = ban.Contains(o);
-            if (hisnum.Count > 0 && !cont) {
-                o = hisnum[hisnum.Count - 1];
-                order.Remove(o); ttt[o] = true; order.Add(o); EnemyThread.Start(o);
-                hisnum.RemoveAt(hisnum.Count - 1);
-            }
-            else { o = num + 1; order.Add(o); count.Add(0); pos.Add("-20,175,0,0"); ttt.Add(true); EnemyThread.Start(++num); }
+            else { o = ++num; order.Add(o); EnemyThread.Start(o); }
             place1.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Render, new Action(() => {
-                if (!cont && hisnum.Count == 0) {
+                if (newer == 0) {
                     imageControl.Add(new Image());
                     HpControl.Add(new Label());
-                    pos.Add("-20,175,0,0");
                 }
-                pos[o] = imageControl[o].Margin.ToString();
-                HpControl[o].Margin = new Thickness(-20, 195, 0, 0);
                 HpControl[o].Foreground = Brushes.White;
                 imageControl[o].Height = 50;
                 imageControl[o].Width = 50;
-                imageControl[o].Margin = new Thickness(-20, 175, 0, 0);
-                count[o] = 0;
-                imageControl[o].Source = ghost.Source;
-                if (!canv.Children.Contains(imageControl[o])) {
-                    canv.Children.Add(imageControl[o]);
-                    canv.Children.Add(HpControl[o]);
-                }
+                imageControl[o].Margin = new Thickness(-20, 275, 0, 0);
+                imageControl[o].Source = God_ghost.Source;
+                canv.Children.Add(imageControl[o]);
+                canv.Children.Add(HpControl[o]);
             }));
-            Thread.Sleep(1200);
+
+            Thread.Sleep(3000);
+
         }
     }
-    int[] VIP = new int[] { -1, -1 };
-    int[] Vl = new int[] { -1, -1 };
-    int[] Vt = new int[] { -1, -1 };
-    int[] ti = new int[] { 0, 0 };
-    List<int> dead = new List<int>();
+
+
     private void EnemyMovement(object? obj) {
         int o = (int)obj;
         hp[o] = 100;
-        int l = -20, t = 175;
-        while (ppp && ttt[o]) {
-            bool death = false;
-            Thread.Sleep(10);
-            int qw = -1;
-            for (int i = 0; i < upgrade.Length; i++) {
-                int o2 = o, l2 = l, t2 = t;
-                bool bol = false;
-                
-                if (hp[o] < 1) { bol = true; }
-                if (VIP[i] != -1) {
-                    o = VIP[i];
-                    VIP[i] = -1;
-                    l = Vl[i];
-                    t = Vt[i];
-                }
-                if (o < 0) o = o2;
-                if (hp[o] < 1 || bol) {
-                    int my = 1;
-                    int ord = order.IndexOf(o);
-                    if (ord == order.Count - 1) my = 0;
-                    VIP[i] = order[ord + my];
-                    Vl[i] = l;
-                    Vt[i] = t;
-                    death = true;
-                }
-                bool SomeMath = Math.Sqrt(Math.Abs((range[i, 0] - l) * (range[i, 0] - l)) + Math.Abs((range[i, 1] - t) * (range[i, 1] - t))) < 177;
+        double l = -20, t = 275;
+        while (ppp) {
+            if (hp[o] < 1) {
+                order.RemoveAt(o); order.Add(o);
                 place1.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Render, new Action(() => {
-                    pos[o] = imageControl[o].Margin.ToString();
-                    if (i == 0 && SomeMath && e1.Visibility == Visibility.Hidden && upgrade[0] > 0) { e1.Visibility = Visibility.Visible; ti[i] = 0; }
-                    if (i == 1 && SomeMath && e2.Visibility == Visibility.Hidden && upgrade[1] > 0) { e2.Visibility = Visibility.Visible; ti[i] = 0; }
+                    canv.Children.Remove(imageControl[o]);
+                    HpControl[o].Margin = new Thickness(-100, 0, 0, 0);
+                    canv.Children.Remove(HpControl[o]);
                 }));
-                bool contain = NumOfBusy[i].Contains(o);
-                if (contain && !SomeMath && o == o2) {
-                    for (int f = 0; f < IsBusy[i].Count; f++) {
-                        if (IsBusy[i][f] == false) continue;
-                        IsBusy[i][f] = false;
-                        break;
+                hisnum[++newer] = o;
+                return;
+            }
+            Thread.Sleep(10);
+            place1.Dispatcher.Invoke(new Action(() => {
+                if (IsBusy[0] && e1.Visibility == Visibility.Hidden && upgrade[0] > 0) { e1.Visibility = Visibility.Visible; }
+                if (IsBusy[1] && e2.Visibility == Visibility.Hidden && upgrade[1] > 0) { e2.Visibility = Visibility.Visible; }
+                if (IsBusy[2] && e3.Visibility == Visibility.Hidden && upgrade[2] > 0) { e3.Visibility = Visibility.Visible; }
+                if (IsBusy[3] && e4.Visibility == Visibility.Hidden && upgrade[3] > 0) { e4.Visibility = Visibility.Visible; }
+            }));
+            for (int i = 0; i < IsBusy.Length; i++) {
+                dmga[i]++;
+                if (dmga[i] > order.Count + 5) { IsBusy[i] = false; dmga[i] = 0; }
+                bool SomeMath = Math.Sqrt(Math.Abs((range[i, 0] - l) * (range[i, 0] - l)) + Math.Abs((range[i, 1] - t + 90) * (range[i, 1] - t + 90))) < 175;
+                if (upgrade[i] > 10 && SomeMath) { IsBusy[i] = false; }
+                else {
+                    if ((NumOfBusy[i] == o) && !SomeMath) {
+                        IsBusy[i] = false;
+                        int rt = order.IndexOf(o);
+                        int one = rt == order.Count - 1 ? 0 : 1;
+                        NumOfBusy[i] = order[rt + one];
                     }
                 }
-                if (o == NumOfBusy[i][0] && upgrade[i] == 3) {
-                    int r = 0;
-                }
-                if ((IsBusy[i].Contains(false) || contain) && SomeMath) {
-                    bool both = false;
-                    if (o == qw) {
-                        both = true;
-                    }
-                    qw = o;
+                if (((!IsBusy[i] || NumOfBusy[i] == o) && SomeMath)) {
                     double dmg = 0;
                     if (upgrade[i] == 1) { dmg = 0.2; }
-                    else if (upgrade[i] == 11) { dmg = 0.14; }
-                    else if (upgrade[i] == 2) { dmg = 0.4; }
-                    else if (upgrade[i] == 3) { dmg = 0.8; }
-                    else if (upgrade[i] == 12) { dmg = 0.27; }
-                    else if (upgrade[i] == 13) { dmg = 0.55; }
-                    if (both) hp[o] -= dmg;
+                    else if (upgrade[i] == 11) { dmg = 0.05; }
+                    else if (upgrade[i] == 2) { dmg = 0.6; }
+                    else if (upgrade[i] == 3) { dmg = 1.8; }
+                    else if (upgrade[i] == 12) { dmg = 0.1; }
+                    else if (upgrade[i] == 13) { dmg = 0.2; }
                     hp[o] -= dmg;
-                    if (dmg == 0 && i == 1 && upgrade[1] > 0) {
-                        for (int j = 0; j < IsBusy[i].Count; j++) {
-                            IsBusy[i][j] = false;
-                            NumOfBusy[i][j] = -1;
-                        }
-                        hp[o] = -1;
-                    }
+                    if (dmg != 0) dmga[i] = 0;
                     if (hp[o] < 1) {
-                        int my = 1;
-                        int ord = order.IndexOf(o);
-                        if (ord == order.Count - 1) my = 0;
-                        VIP[i] = order[ord + my];
-                        Vl[i] = l;
-                        Vt[i] = t;
-                        death = true;
+                        IsBusy[i] = true;
+
+                        place1.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Render, new Action(() => {
+                            canv.Children.Remove(imageControl[o]);
+                            HpControl[o].Margin = new Thickness(-100, 0, 0, 0);
+                            canv.Children.Remove(HpControl[o]);
+                        }));
+                        int ee = order.IndexOf(o) + 1;
+                        order.RemoveAt(o); order.Add(o); hisnum[++newer] = o;
+                        NumOfBusy[i] = ee;
+                        return;
                     }
-                    else if (IsBusy[i].Contains(false)) {
-                        for (int f = 0; f < IsBusy[i].Count; f++) {
-                            if (IsBusy[i].Count > 1 && ((IsBusy[i][f] == true && NumOfBusy[i][f] != -1) ||
-                                NumOfBusy[i].Contains(o))) continue;
-                            IsBusy[i][f] = true;
-                            NumOfBusy[i][f] = o;
-                            break;
-                        }
-                    }
+                    else { IsBusy[i] = true; NumOfBusy[i] = o; }
+
                 }
                 else {
-                    if (ti[i] < order.Count + 10) { ti[i]++; }
-                    else {
-                        place1.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Background, new Action(() => {
-                            if (!IsBusy[0].Contains(true) && e1.Visibility == Visibility.Visible) {
-                                e1.Visibility = Visibility.Hidden;
-                            }
-                            if (!IsBusy[1].Contains(true) && e2.Visibility == Visibility.Visible) {
-                                e2.Visibility = Visibility.Hidden;
-                            }
-                        }));
-                        ti[i] = 0;
-                    }
+                    place1.Dispatcher.Invoke(new Action(() => {
+                        if (!IsBusy[0] && e1.Visibility == Visibility.Visible) { e1.Visibility = Visibility.Hidden; }
+                        if (!IsBusy[1] && e2.Visibility == Visibility.Visible) { e2.Visibility = Visibility.Hidden; }
+                        if (!IsBusy[2] && e3.Visibility == Visibility.Visible) { e3.Visibility = Visibility.Hidden; }
+                        if (!IsBusy[3] && e4.Visibility == Visibility.Visible) { e4.Visibility = Visibility.Hidden; }
+                    }));
                 }
-                o = o2; t = t2; l = l2;
             }
-            if (death) {
-                for(int i = 0; i < NumOfPlace; i++) {
-                    for (int f = 0; f < IsBusy[i].Count; f++) {
-                        if (IsBusy[i][f] == true && NumOfBusy[i][f] != -1 && IsBusy[i].Count > 1) continue;
-                        int ty = 1;
-                        int tw = order.IndexOf(o);
-                        if (tw == order.Count - 1) ty = 0;
-                        NumOfBusy[i][f] = order[tw + ty];
-                        IsBusy[i][f] = true;
-                        break;
-                    }
-                }
-                place1.Dispatcher.Invoke(new Action(() => {
-                    canv.Children.Remove(imageControl[o]);
-                    canv.Children.Remove(HpControl[o]);
-                    pos[o] = imageControl[o].Margin.ToString();
-                }));
-                hisnum.Add(o);
-                ++newer; return; }
             place1.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Render, new Action(() => {
                 imageControl[o].Margin = new Thickness(l, t, 0, 0);
                 HpControl[o].Margin = new Thickness(l + 8, t + 22, 0, 0);
-                HpControl[o].Content =  (int)hp[o];//l + "/" + t +  "(" + o + ") " +
-                pos[o] = imageControl[o].Margin.ToString();
-                count[o] = 0;
+                HpControl[o].Content = (int)hp[o];
             }));
-            if (l == 180 && t > 5) { t--; }
-            else if (l == 390 && t < 230) { t++; }
-            else if (l == 690 && t > 120) { t--; }
-            else if (l > -21) l++;
-            if (l >= 1100) {
-                place1.Dispatcher.Invoke(new Action(() => {
+            if (l == 184 && t > 105) { t--; }
+            else if (l == 386 && t < 330) { t++; }
+            else if (l == 690 && t > 220) { t--; }
+            else l++;
+            if (l >= 1100 || hp[o] < 1) {
+                order.RemoveAt(o); order.Add(o);
+                place1.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Render, new Action(() => {
                     canv.Children.Remove(imageControl[o]);
+                    HpControl[o].Margin = new Thickness(-100, 0, 0, 0);
                     canv.Children.Remove(HpControl[o]);
                 }));
-                order.Remove(o);
-                hisnum.Add(o);
-                ++newer;
-                return;
+                hisnum[++newer] = o; return;
             }
         }
     }
+
     //first buy
     private void Button_Click(object sender, RoutedEventArgs e) {
-        NumOfPlace = int.Parse((string)(sender as Button).Name.Substring(5)) - 1;
+        NumOfPlace = int.Parse((string)(sender as Button).Content) - 1;
         double l = (sender as Button).Margin.Left, t = (sender as Button).Margin.Top;
         int u = 124;
+        build.Left = Left + l + 5;
+        build.Top = Top + t + u;
+        build.list.Items.Clear();
+        thread = new Thread(wait);
+
         if (upgrade[NumOfPlace] == 0) {
-            build.Left = Left + l + 5;
-            build.Top = Top + t + u;
-            build.Show();
-            thread = new Thread(wait);
-            thread.Start(build);
+            build.list.Items.Add("Archer tower");
+            build.list.Items.Add("Wizard tower");
+            Build.upg = false;
         }
         else {
-            up.Left = Left + l + 5;
-            up.Top = Top + t + u;
-            up.Show();
-            thread = new Thread(wait);
-            thread.Start(up);
+            build.list.Items.Add("Upgrade");
+            build.list.Items.Add("Destroy");
+            Build.upg = true;
         }
-
+        build.Show();
+        thread.Start(build);
     }
     //uphgrade
     private async void wait(object? obj) {
@@ -320,17 +205,8 @@ public partial class MainWindow : Window {
                 place1.Dispatcher.Invoke(() => {
                     if (!(obj as Window).IsActive) {
                         (obj as Window).Hide();
-                        Image img = new Image();
-                        if (Build.selected == 0) {
-                            img.Source = pic5.Source;
-                            places[NumOfPlace].Content = img;
-                            Build.selected = -1; upgrade[NumOfPlace] = 1;
-                        }
-                        if (Build.selected == 1) {
-                            img.Source = pic.Source;
-                            places[NumOfPlace].Content = img;
-                            Build.selected = -1; upgrade[NumOfPlace] = 11; NumOfBusy[NumOfPlace].Add(-1); NumOfBusy[NumOfPlace].Add(-1); IsBusy[NumOfPlace].Add(false); IsBusy[NumOfPlace].Add(false);
-                        }
+                        if (Build.selected == 0) { places[NumOfPlace].Background = new SolidColorBrush(Color.FromRgb(235, 91, 91)); Build.selected = -1; upgrade[NumOfPlace] = 1; }
+                        if (Build.selected == 1) { places[NumOfPlace].Background = new SolidColorBrush(Color.FromRgb(82, 169, 235)); Build.selected = -1; upgrade[NumOfPlace] = 11; }
                         return;
                     }
                 });
@@ -339,35 +215,18 @@ public partial class MainWindow : Window {
                 place1.Dispatcher.Invoke(() => {
                     if (!(obj as Window).IsActive) {
                         (obj as Window).Hide();
-                        if (Upgrade.Destroy == 0) {
-                            Image img = new Image();
-                            if (upgrade[NumOfPlace] == 1) {
-                                img.Source = pic3.Source;
-                                places[NumOfPlace].Content = img;
-                            }
-                            if (upgrade[NumOfPlace] == 2) {
-                                img.Source = pic4.Source;
-                                places[NumOfPlace].Content = img;
-                            }
-                            if (upgrade[NumOfPlace] == 11) {
-                                img.Source = pic1.Source;
-                                places[NumOfPlace].Content = img;
-                            }
-                            if (upgrade[NumOfPlace] == 12) {
-                                img.Source = pic2.Source;
-                                places[NumOfPlace].Content = img;
-                            }
+                        if (Build.Destroy == 0) {
+                            if (upgrade[NumOfPlace] == 1) { places[NumOfPlace].Background = Brushes.Red; }
+                            if (upgrade[NumOfPlace] == 2) { places[NumOfPlace].Background = new SolidColorBrush(Color.FromRgb(122, 5, 5)); }
+                            if (upgrade[NumOfPlace] == 11) { places[NumOfPlace].Background = Brushes.Blue; }
+                            if (upgrade[NumOfPlace] == 12) { places[NumOfPlace].Background = new SolidColorBrush(Color.FromRgb(12, 44, 150)); }
                             if (upgrade[NumOfPlace] != 13 && upgrade[NumOfPlace] != 3) upgrade[NumOfPlace]++;
-                            Upgrade.Destroy = -1;
+                            Build.Destroy = -1;
                         }//destroy
-                        else if (Upgrade.Destroy == 1) {
-                            for (int i = 1; i < IsBusy[NumOfPlace].Count; i++) {
-                                IsBusy[NumOfPlace].RemoveAt(i);
-                                NumOfBusy[NumOfPlace].RemoveAt(i);
-                            }
+                        else if (Build.Destroy == 1) {
                             places[NumOfPlace].Background = Brushes.White;
                             upgrade[NumOfPlace] = 0;
-                            Upgrade.Destroy = -1;
+                            Build.Destroy = -1;
                             if (NumOfPlace == 0) e1.Visibility = Visibility.Hidden;
                             else e2.Visibility = Visibility.Hidden;
                         }
@@ -375,11 +234,141 @@ public partial class MainWindow : Window {
                     }
                 });
             }
+            /*  if (test) {
+                  place1.Dispatcher.Invoke(new Action(() => { build.Hide(); test = false; return; }));
+              }*/
         }
     }
+
     private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
         ppp = false;
-        up.Close();
         build.Close();
+    }
+    int type = 0;
+    private void bowman_MouseMove(object sender, MouseEventArgs e) {
+        if (e.LeftButton == MouseButtonState.Pressed) {
+            type = 0;
+            DragDrop.DoDragDrop(bow, bow, DragDropEffects.Move);
+        }
+    }
+    private void canv_DragOver(object sender, DragEventArgs e) {
+        Point dpos = e.GetPosition(canv);
+        last_pos.X = dpos.X - 68;
+        last_pos.Y = dpos.Y - 38;
+        if (type == 0) {
+            Canvas.SetLeft(bow, dpos.X - 47.5);
+            Canvas.SetTop(bow, dpos.Y - 47.5);
+        }
+        if (type == 1) {
+            Canvas.SetLeft(wiz, dpos.X - 47.5);
+            Canvas.SetTop(wiz, dpos.Y - 47.5);
+        }
+    }
+    Point last_pos;
+    private void wizard_MouseMove(object sender, MouseEventArgs e) {
+        if (e.LeftButton == MouseButtonState.Pressed) {
+            type = 1;
+            DragDrop.DoDragDrop(wiz, wiz, DragDropEffects.Move);
+        }
+    }
+
+    private void canv_Drop(object sender, DragEventArgs e) {
+        if (type == 0) {//return archer to start position
+            places[count].Background = new SolidColorBrush(Color.FromRgb(235, 91, 91));
+            upgrade[count] = 1;
+            Canvas.SetLeft(bow, 33);
+            Canvas.SetTop(bow, 438);
+        }
+        if (type == 1) {
+            places[count].Background = new SolidColorBrush(Color.FromRgb(82, 169, 235));
+            upgrade[count] = 11;
+            Canvas.SetLeft(wiz, 147);
+            Canvas.SetTop(wiz, 438);
+        }
+        //if (l == 184 && t > 105) { t--; }
+        //else if (l == 386 && t < 330) { t++; }
+        //else if (l == 690 && t > 220) { t--; }
+        if (last_pos.X<190&&last_pos.Y>185&& last_pos.Y < 326) { return; }
+        for(int i = 0; i < positions_x.Count; i++) {
+            if(positions_x[i]+96 > last_pos.X&& positions_x[i] - 96 < last_pos.X&&
+                positions_y[i] + 96 > last_pos.Y && positions_y[i] - 96 < last_pos.Y) { return; }
+        }
+        places[count].Margin = new Thickness(last_pos.X, last_pos.Y, 0, 0);
+        range[count, 0] = (int)(last_pos.X + 25);//write down position of the place  
+        range[count, 1] = (int)(last_pos.Y - 47.5);
+        places[count].Visibility = Visibility.Visible;
+        double top = places[count].Margin.Top;
+        double left = places[count].Margin.Left;
+        ellipses[count].Margin = new Thickness(left - 127, top - 127, 0, 0);
+        if (test) { test = false; Button_Click(place1, null); }
+        positions_x.Add(left);
+        positions_y.Add(top);
+        count++;
+    }
+    void SetAll() {
+        for(int i = 0; i < NumOfBusy.Length; i++) {
+            NumOfBusy[i] = -1;
+        }
+        places[0] = place1;
+        places[1] = place2;
+        places[2] = place3;
+        places[3] = place4;
+        places[4] = place5;
+        places[5] = place6;
+        places[6] = place7;
+        places[7] = place8;
+        places[8] = place9;
+        places[9] = place10;
+        places[10] = place11;
+        places[11] = place12;
+        places[12] = place13;
+        places[13] = place14;
+        places[14] = place15;
+        places[15] = place16;
+        places[16] = place17;
+        places[17] = place18;
+        places[18] = place19;
+        places[19] = place20;
+        places[20] = place21;
+        places[21] = place22;
+        places[22] = place23;
+        places[23] = place24;
+        places[24] = place25;
+        places[25] = place26;
+        places[26] = place27;
+        places[27] = place28;
+        places[28] = place29;
+        places[29] = place30;
+
+        ellipses[0] = e1;
+        ellipses[1] = e2;
+        ellipses[2] = e3;
+        ellipses[3] = e4;
+        ellipses[4] = e5;
+        ellipses[5] = e6;
+        ellipses[6] = e7;
+        ellipses[7] = e8;
+        ellipses[8] = e9;
+        ellipses[9] = e10;
+        ellipses[10] = e11;
+        ellipses[11] = e12;
+        ellipses[12] = e13;
+        ellipses[13] = e14;
+        ellipses[14] = e15;
+        ellipses[15] = e16;
+        ellipses[16] = e17;
+        ellipses[17] = e18;
+        ellipses[18] = e19;
+        ellipses[19] = e20;
+        ellipses[20] = e21;
+        ellipses[21] = e22;
+        ellipses[22] = e23;
+        ellipses[23] = e24;
+        ellipses[24] = e25;
+        ellipses[25] = e26;
+        ellipses[26] = e27;
+        ellipses[27] = e28;
+        ellipses[28] = e29;
+        ellipses[29] = e30;
     }
 }

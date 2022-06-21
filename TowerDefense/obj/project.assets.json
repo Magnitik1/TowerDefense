@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\aleks\\source\\repos\\TowerDefense\\TowerDefense\\TowerDefense.csproj",
+      "projectUniqueName": "C:\\Users\\aleks\\Desktop\\2\\TowerDefense\\TowerDefense.csproj",
       "projectName": "TowerDefense",
-      "projectPath": "C:\\Users\\aleks\\source\\repos\\TowerDefense\\TowerDefense\\TowerDefense.csproj",
+      "projectPath": "C:\\Users\\aleks\\Desktop\\2\\TowerDefense\\TowerDefense.csproj",
       "packagesPath": "C:\\Users\\aleks\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\aleks\\source\\repos\\TowerDefense\\TowerDefense\\obj\\",
+      "outputPath": "C:\\Users\\aleks\\Desktop\\2\\TowerDefense\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\aleks\\AppData\\Roaming\\NuGet\\NuGet.Config",
