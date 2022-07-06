@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\aleks\\Desktop\\2\\TowerDefense\\TowerDefense.csproj": {}
+    "C:\\Users\\aleks\\source\\repos\\TowerDefense\\TowerDefense\\TowerDefense.csproj": {}
   },
   "projects": {
-    "C:\\Users\\aleks\\Desktop\\2\\TowerDefense\\TowerDefense.csproj": {
+    "C:\\Users\\aleks\\source\\repos\\TowerDefense\\TowerDefense\\TowerDefense.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\aleks\\Desktop\\2\\TowerDefense\\TowerDefense.csproj",
+        "projectUniqueName": "C:\\Users\\aleks\\source\\repos\\TowerDefense\\TowerDefense\\TowerDefense.csproj",
         "projectName": "TowerDefense",
-        "projectPath": "C:\\Users\\aleks\\Desktop\\2\\TowerDefense\\TowerDefense.csproj",
+        "projectPath": "C:\\Users\\aleks\\source\\repos\\TowerDefense\\TowerDefense\\TowerDefense.csproj",
         "packagesPath": "C:\\Users\\aleks\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\aleks\\Desktop\\2\\TowerDefense\\obj\\",
+        "outputPath": "C:\\Users\\aleks\\source\\repos\\TowerDefense\\TowerDefense\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\aleks\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -39,6 +39,12 @@
       "frameworks": {
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
+          "dependencies": {
+            "XamlAnimatedGif": {
+              "target": "Package",
+              "version": "[2.0.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -57,7 +63,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.106\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }

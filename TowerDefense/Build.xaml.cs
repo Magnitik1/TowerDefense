@@ -21,20 +21,12 @@ public partial class Build : Window {
         InitializeComponent();
     }
     public static int selected=-1;
-    public static bool upg=false;
     public static int Destroy = -1;
 
     private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-        if (!upg) {
-            if ((sender as ListBox).SelectedIndex != -1) selected = (sender as ListBox).SelectedIndex;
-            (sender as ListBox).SelectedItem = null;
-            Hide();
-        }
-        else {
             if ((sender as ListBox).SelectedIndex == 0) Destroy = 0;
             if ((sender as ListBox).SelectedIndex == 1) Destroy = 1;
             (sender as ListBox).SelectedItem = null;
             Hide();
-        }
     }
 }

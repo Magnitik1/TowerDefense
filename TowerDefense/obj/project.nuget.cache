@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "p1j8hbFWgx/O1tCxbORZm0A6irbksGtVqa6+y7q9JjDEKkZIQITlcGIhiljkr7Rh0VcSHDAABB+xA07OUEz7Sw==",
+  "dgSpecHash": "ZsZXoKA8z9vCcvWQS38R2GspvXDhRN7LL4OYPOxW7+4NDfQeR3nZAYRlzBFIMCa46M18AhSEwsxmuqii1y9PGw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\aleks\\Desktop\\2\\TowerDefense\\TowerDefense.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\aleks\\source\\repos\\TowerDefense\\TowerDefense\\TowerDefense.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\aleks\\.nuget\\packages\\xamlanimatedgif\\2.0.2\\xamlanimatedgif.2.0.2.nupkg.sha512"
+  ],
   "logs": []
 }
